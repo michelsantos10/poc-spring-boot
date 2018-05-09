@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -72,14 +73,14 @@ public class Employees implements Serializable {
     @Column(name = "hire_date")
     @Temporal(TemporalType.DATE)
     private Date hireDate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employees")
-    private Collection<Salaries> salariesCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employees")
-    private Collection<DeptEmp> deptEmpCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employees")
-    private Collection<DeptManager> deptManagerCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employees")
-    private Collection<Titles> titlesCollection;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employees", fetch=FetchType.LAZY)
+//    private Collection<Salaries> salariesCollection;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employees", fetch=FetchType.LAZY)
+//    private Collection<DeptEmp> deptEmpCollection;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employees", fetch=FetchType.LAZY)
+//    private Collection<DeptManager> deptManagerCollection;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employees", fetch=FetchType.LAZY)
+//    private Collection<Titles> titlesCollection;
 
     public Employees() {
     }
@@ -145,41 +146,41 @@ public class Employees implements Serializable {
         this.hireDate = hireDate;
     }
 
-    @XmlTransient
-    public Collection<Salaries> getSalariesCollection() {
-        return salariesCollection;
-    }
-
-    public void setSalariesCollection(Collection<Salaries> salariesCollection) {
-        this.salariesCollection = salariesCollection;
-    }
-
-    @XmlTransient
-    public Collection<DeptEmp> getDeptEmpCollection() {
-        return deptEmpCollection;
-    }
-
-    public void setDeptEmpCollection(Collection<DeptEmp> deptEmpCollection) {
-        this.deptEmpCollection = deptEmpCollection;
-    }
-
-    @XmlTransient
-    public Collection<DeptManager> getDeptManagerCollection() {
-        return deptManagerCollection;
-    }
-
-    public void setDeptManagerCollection(Collection<DeptManager> deptManagerCollection) {
-        this.deptManagerCollection = deptManagerCollection;
-    }
-
-    @XmlTransient
-    public Collection<Titles> getTitlesCollection() {
-        return titlesCollection;
-    }
-
-    public void setTitlesCollection(Collection<Titles> titlesCollection) {
-        this.titlesCollection = titlesCollection;
-    }
+//    @XmlTransient
+//    public Collection<Salaries> getSalariesCollection() {
+//        return salariesCollection;
+//    }
+//
+//    public void setSalariesCollection(Collection<Salaries> salariesCollection) {
+//        this.salariesCollection = salariesCollection;
+//    }
+//
+//    @XmlTransient
+//    public Collection<DeptEmp> getDeptEmpCollection() {
+//        return deptEmpCollection;
+//    }
+//
+//    public void setDeptEmpCollection(Collection<DeptEmp> deptEmpCollection) {
+//        this.deptEmpCollection = deptEmpCollection;
+//    }
+//
+//    @XmlTransient
+//    public Collection<DeptManager> getDeptManagerCollection() {
+//        return deptManagerCollection;
+//    }
+//
+//    public void setDeptManagerCollection(Collection<DeptManager> deptManagerCollection) {
+//        this.deptManagerCollection = deptManagerCollection;
+//    }
+//
+//    @XmlTransient
+//    public Collection<Titles> getTitlesCollection() {
+//        return titlesCollection;
+//    }
+//
+//    public void setTitlesCollection(Collection<Titles> titlesCollection) {
+//        this.titlesCollection = titlesCollection;
+//    }
 
     @Override
     public int hashCode() {

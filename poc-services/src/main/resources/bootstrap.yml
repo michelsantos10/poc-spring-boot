@@ -3,3 +3,7 @@ spring:
     config:
       uri: http://192.168.0.107:8888
       enabled: true
+  data:
+    rest:
+      base-path: /api
+debug: true

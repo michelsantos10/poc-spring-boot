@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-  <persistence-unit name="poc-services">
-    <class>poc.services.entities.CurrentDeptEmp</class>
-    <class>poc.services.entities.Department</class>
-    <class>poc.services.entities.DeptEmp</class>
-    <class>poc.services.entities.DeptEmpLatestDate</class>
-    <class>poc.services.entities.DeptEmpPK</class>
-    <class>poc.services.entities.DeptManager</class>
-    <class>poc.services.entities.DeptManagerPK</class>
-    <class>poc.services.entities.Employee</class>
-    <class>poc.services.entities.Salary</class>
-    <class>poc.services.entities.SalaryPK</class>
-    <class>poc.services.entities.Title</class>
-    <class>poc.services.entities.TitlePK</class>
-    <class>poc.services.entities.Employees</class>
-    <class>poc.services.entities.Salaries</class>
-    <class>poc.services.entities.Departments</class>
-    <class>poc.services.entities.Titles</class>
-  </persistence-unit>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="poc-services">
+		<class>poc.services.entities.Departments</class>
+		<class>poc.services.entities.DeptEmp</class>
+		<class>poc.services.entities.DeptEmpPK</class>
+		<class>poc.services.entities.DeptManager</class>
+		<class>poc.services.entities.DeptManagerPK</class>
+		<class>poc.services.entities.Employees</class>
+		<class>poc.services.entities.Salaries</class>
+		<class>poc.services.entities.SalariesPK</class>
+		<class>poc.services.entities.Titles</class>
+		<class>poc.services.entities.TitlesPK</class>
+	</persistence-unit>
 </persistence>
