@@ -6,18 +6,20 @@
 package poc.services.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
  * @author miche
  */
 @Embeddable
-public class DeptManagerPK implements Serializable {
+public class SalariesPK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -25,16 +27,16 @@ public class DeptManagerPK implements Serializable {
     private int empNo;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 4)
-    @Column(name = "dept_no")
-    private String deptNo;
+    @Column(name = "from_date")
+    @Temporal(TemporalType.DATE)
+    private Date fromDate;
 
-    public DeptManagerPK() {
+    public SalariesPK() {
     }
 
-    public DeptManagerPK(int empNo, String deptNo) {
+    public SalariesPK(int empNo, Date fromDate) {
         this.empNo = empNo;
-        this.deptNo = deptNo;
+        this.fromDate = fromDate;
     }
 
     public int getEmpNo() {
@@ -45,33 +47,33 @@ public class DeptManagerPK implements Serializable {
         this.empNo = empNo;
     }
 
-    public String getDeptNo() {
-        return deptNo;
+    public Date getFromDate() {
+        return fromDate;
     }
 
-    public void setDeptNo(String deptNo) {
-        this.deptNo = deptNo;
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) empNo;
-        hash += (deptNo != null ? deptNo.hashCode() : 0);
+        hash += (fromDate != null ? fromDate.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DeptManagerPK)) {
+        if (!(object instanceof SalariesPK)) {
             return false;
         }
-        DeptManagerPK other = (DeptManagerPK) object;
+        SalariesPK other = (SalariesPK) object;
         if (this.empNo != other.empNo) {
             return false;
         }
-        if ((this.deptNo == null && other.deptNo != null) || (this.deptNo != null && !this.deptNo.equals(other.deptNo))) {
+        if ((this.fromDate == null && other.fromDate != null) || (this.fromDate != null && !this.fromDate.equals(other.fromDate))) {
             return false;
         }
         return true;
@@ -79,7 +81,7 @@ public class DeptManagerPK implements Serializable {
 
     @Override
     public String toString() {
-        return "poc.services.entities.DeptManagerPK[ empNo=" + empNo + ", deptNo=" + deptNo + " ]";
+        return "poc.services.entities.SalariesPK[ empNo=" + empNo + ", fromDate=" + fromDate + " ]";
     }
     
 }

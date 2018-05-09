@@ -1,82 +1,141 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package poc.services.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
-
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * The persistent class for the dept_manager database table.
- * 
+ *
+ * @author miche
  */
 @Entity
-@Table(name="dept_manager")
-@NamedQuery(name="DeptManager.findAll", query="SELECT d FROM DeptManager d")
+@Table(name = "dept_manager")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "DeptManager.findAll", query = "SELECT d FROM DeptManager d")
+    , @NamedQuery(name = "DeptManager.findByEmpNo", query = "SELECT d FROM DeptManager d WHERE d.deptManagerPK.empNo = :empNo")
+    , @NamedQuery(name = "DeptManager.findByDeptNo", query = "SELECT d FROM DeptManager d WHERE d.deptManagerPK.deptNo = :deptNo")
+    , @NamedQuery(name = "DeptManager.findByFromDate", query = "SELECT d FROM DeptManager d WHERE d.fromDate = :fromDate")
+    , @NamedQuery(name = "DeptManager.findByToDate", query = "SELECT d FROM DeptManager d WHERE d.toDate = :toDate")})
 public class DeptManager implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private DeptManagerPK id;
+    private static final long serialVersionUID = 1L;
+    @EmbeddedId
+    protected DeptManagerPK deptManagerPK;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "from_date")
+    @Temporal(TemporalType.DATE)
+    private Date fromDate;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "to_date")
+    @Temporal(TemporalType.DATE)
+    private Date toDate;
+    @JoinColumn(name = "emp_no", referencedColumnName = "emp_no", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Employees employees;
+    @JoinColumn(name = "dept_no", referencedColumnName = "dept_no", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Departments departments;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="from_date")
-	private Date fromDate;
+    public DeptManager() {
+    }
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="to_date")
-	private Date toDate;
+    public DeptManager(DeptManagerPK deptManagerPK) {
+        this.deptManagerPK = deptManagerPK;
+    }
 
-	//bi-directional many-to-one association to Employee
-	@ManyToOne
-	@JoinColumn(name="emp_no")
-	private Employee employee;
+    public DeptManager(DeptManagerPK deptManagerPK, Date fromDate, Date toDate) {
+        this.deptManagerPK = deptManagerPK;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+    }
 
-	//bi-directional many-to-one association to Department
-	@ManyToOne
-	@JoinColumn(name="dept_no")
-	private Department department;
+    public DeptManager(int empNo, String deptNo) {
+        this.deptManagerPK = new DeptManagerPK(empNo, deptNo);
+    }
 
-	public DeptManager() {
-	}
+    public DeptManagerPK getDeptManagerPK() {
+        return deptManagerPK;
+    }
 
-	public DeptManagerPK getId() {
-		return this.id;
-	}
+    public void setDeptManagerPK(DeptManagerPK deptManagerPK) {
+        this.deptManagerPK = deptManagerPK;
+    }
 
-	public void setId(DeptManagerPK id) {
-		this.id = id;
-	}
+    public Date getFromDate() {
+        return fromDate;
+    }
 
-	public Date getFromDate() {
-		return this.fromDate;
-	}
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
 
-	public void setFromDate(Date fromDate) {
-		this.fromDate = fromDate;
-	}
+    public Date getToDate() {
+        return toDate;
+    }
 
-	public Date getToDate() {
-		return this.toDate;
-	}
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
 
-	public void setToDate(Date toDate) {
-		this.toDate = toDate;
-	}
+    public Employees getEmployees() {
+        return employees;
+    }
 
-	public Employee getEmployee() {
-		return this.employee;
-	}
+    public void setEmployees(Employees employees) {
+        this.employees = employees;
+    }
 
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
+    public Departments getDepartments() {
+        return departments;
+    }
 
-	public Department getDepartment() {
-		return this.department;
-	}
+    public void setDepartments(Departments departments) {
+        this.departments = departments;
+    }
 
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (deptManagerPK != null ? deptManagerPK.hashCode() : 0);
+        return hash;
+    }
 
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof DeptManager)) {
+            return false;
+        }
+        DeptManager other = (DeptManager) object;
+        if ((this.deptManagerPK == null && other.deptManagerPK != null) || (this.deptManagerPK != null && !this.deptManagerPK.equals(other.deptManagerPK))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "poc.services.entities.DeptManager[ deptManagerPK=" + deptManagerPK + " ]";
+    }
+    
 }

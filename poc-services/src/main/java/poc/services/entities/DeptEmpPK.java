@@ -1,57 +1,85 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package poc.services.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
- * The primary key class for the dept_emp database table.
- * 
+ *
+ * @author miche
  */
 @Embeddable
 public class DeptEmpPK implements Serializable {
-	//default serial version id, required for serializable classes.
-	private static final long serialVersionUID = 1L;
 
-	@Column(name="emp_no", insertable=false, updatable=false)
-	private int empNo;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "emp_no")
+    private int empNo;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 4)
+    @Column(name = "dept_no")
+    private String deptNo;
 
-	@Column(name="dept_no", insertable=false, updatable=false)
-	private String deptNo;
+    public DeptEmpPK() {
+    }
 
-	public DeptEmpPK() {
-	}
-	public int getEmpNo() {
-		return this.empNo;
-	}
-	public void setEmpNo(int empNo) {
-		this.empNo = empNo;
-	}
-	public String getDeptNo() {
-		return this.deptNo;
-	}
-	public void setDeptNo(String deptNo) {
-		this.deptNo = deptNo;
-	}
+    public DeptEmpPK(int empNo, String deptNo) {
+        this.empNo = empNo;
+        this.deptNo = deptNo;
+    }
 
-	public boolean equals(Object other) {
-		if (this == other) {
-			return true;
-		}
-		if (!(other instanceof DeptEmpPK)) {
-			return false;
-		}
-		DeptEmpPK castOther = (DeptEmpPK)other;
-		return 
-			(this.empNo == castOther.empNo)
-			&& this.deptNo.equals(castOther.deptNo);
-	}
+    public int getEmpNo() {
+        return empNo;
+    }
 
-	public int hashCode() {
-		final int prime = 31;
-		int hash = 17;
-		hash = hash * prime + this.empNo;
-		hash = hash * prime + this.deptNo.hashCode();
-		
-		return hash;
-	}
+    public void setEmpNo(int empNo) {
+        this.empNo = empNo;
+    }
+
+    public String getDeptNo() {
+        return deptNo;
+    }
+
+    public void setDeptNo(String deptNo) {
+        this.deptNo = deptNo;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (int) empNo;
+        hash += (deptNo != null ? deptNo.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof DeptEmpPK)) {
+            return false;
+        }
+        DeptEmpPK other = (DeptEmpPK) object;
+        if (this.empNo != other.empNo) {
+            return false;
+        }
+        if ((this.deptNo == null && other.deptNo != null) || (this.deptNo != null && !this.deptNo.equals(other.deptNo))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "poc.services.entities.DeptEmpPK[ empNo=" + empNo + ", deptNo=" + deptNo + " ]";
+    }
+    
 }
